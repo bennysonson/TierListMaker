@@ -1,0 +1,28 @@
+/* Initial S Tier */
+#newTier-2Items { width: 1000px; height: 75px; padding: 0.5em; }
+
+#newTier-2Items > div { float: left; }
+
+/* Initial A Tier */
+
+#newTier-1Items { width: 1000px; height: 75px; padding: 0.5em; }
+
+#newTier-1Items > div { float: left; }
+
+/* Initial B Tier */
+#newTier0Items { width: 1000px; height: 75px; padding: 0.5em; }
+
+#newTier0Items > div { float: left; }
+
+/* Untiered items to tier */
+#untieredItems {width: 1000px; height: 75px; padding: 0.5em; border-style: solid; border-color: black }
+
+#untieredItems > div {float: left; }
+
+/* New created tier items */
+#newTier1Items > div {float: left; }
+#newTier2Items > div {float: left; }
+#newTier3Items > div {float: left; }
+#newTier4Items > div {float: left; }
+#newTier5Items > div {float: left; }
+#newTier6Items > div {float: left; }

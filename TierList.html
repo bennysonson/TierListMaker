@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="Items.css">
+  <meta charset="utf-8">
+  <script src="variables.js"></script>
+  <title>Test</title>
+  <div id='tierTitle'><h2>Tier List Test</h2></div>
+</head>
+<body>
+  
+  
+  <!-- Latest Sortable -->
+  <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+  
+  <div id="tiers">
+    <div id="newTier-2">
+      <div id="newTier-2Label">S TIER</div>
+      <div id="newTier-2Items"></div>
+    </div>
+
+    <div id="newTier-1">
+      <div id="newTier-1Label">A TIER</div>
+      <div id="newTier-1Items"></div>
+    </div>
+
+    <div id="newTier0">
+      <div id="newTier0Label">B TIER</div>
+      <div id="newTier0Items"></div>
+    </div>
+  
+    <div id="newTier1">
+      <div id=newTier1Label></div>
+      <div id="newTier1Items"></div>
+    </div>
+
+    <div id="newTier2">
+      <div id=newTier2Label></div>
+      <div id="newTier2Items"></div>
+    </div>
+
+    <div id="newTier3">
+      <div id=newTier3Label></div>
+      <div id="newTier3Items"></div>
+    </div>
+
+    <div id="newTier4">
+      <div id=newTier4Label></div>
+      <div id="newTier4Items"></div>
+    </div>
+
+    <div id="newTier5">
+      <div id=newTier5Label></div>
+      <div id="newTier5Items"></div>
+    </div>
+  </div>
+
+  <p><br><br></p>
+  <div id="untieredItems"></div>
+  <p><br></p>
+  <button onclick="addItem()">Add Text</button>
+  <button onclick="addTier()">Add Tier</button>
+  <p><br></p>
+  <button onclick="removeTier()">Remove Tier</button>
+  <button onclick="changeTitle()">Change Title</button>
+  <button onclick="saveList()">Save List</button>
+  <p><br></p>
+  <button onclick="debugit()">Debug</button>
+  <input type='file' multiple/>
+
+  <script src="libraries/FileSaver.js"></script>
+  <script>
+    var images = [];
+    window.addEventListener('load', function() {
+      document.querySelector('input[type="file"]').addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+          var imgDiv = document.createElement("div");
+          var imgDOM = document.createElement("img");
+          imgDOM.src = URL.createObjectURL(this.files[0]);
+          imgDOM.style.width = '75px';
+          imgDOM.style.height = '75px';
+          images.push(imgDOM.src);
+          imgDiv.append(imgDOM);
+          document.getElementById('untieredItems').append(imgDiv);
+        }
+      });
+    });
+
+    function saveList() {
+      //var fileName = prompt("File name") + ".txt";
+      var text = [];
+      for (var tier of document.getElementById('tiers').children) {
+        text.push(tier.innerText);
+        for (var tierPics of tier.children[1].children) {
+          text.push(tierPics.src);
+        }
+      }
+      words = text.join(" ");
+      var blob = new Blob([words], {type: "text/plain;charset=utf-8"});
+      saveAs(blob, "asd.txt");
+    }
+
+    /* Decides which letter for new tiers is next */
+    alphabetParse = 3;
+    /* Decides which placeholder new tier is next */
+    newTierParse = 3;
+    /* Decides which tier label color is next */
+    colorsParse = 3;
+
+    /** Initializes S tier sortable */
+    var sortPlace = document.getElementById('newTier-2Items');
+    new Sortable(sortPlace, {
+      group: 'shared',
+      animation: 75,
+    });
+    var labelPlace = document.getElementById('newTier-2Label');
+    labelPlace.style.width = '50px';
+    labelPlace.style.height = '50px';
+    labelPlace.style.padding = '.5em';
+    labelPlace.style.backgroundColor = '#DC143C';
+
+    /** Initializes A tier sortable */
+    sortPlace = document.getElementById('newTier-1Items');
+    new Sortable(sortPlace, {
+      group: 'shared',
+      animation: 75
+    });
+    labelPlace = document.getElementById('newTier-1Label');
+    labelPlace.style.width = '50px';
+    labelPlace.style.height = '50px';
+    labelPlace.style.padding = '.5em';
+    labelPlace.style.backgroundColor = '#2AFF22';
+
+    /** Initializes B tier sortable */
+    sortPlace = document.getElementById('newTier0Items');
+    new Sortable(sortPlace, {
+      group: 'shared',
+      animation: 75
+    });
+    labelPlace = document.getElementById('newTier0Label');
+    labelPlace.style.width = '50px';
+    labelPlace.style.height = '50px';
+    labelPlace.style.padding = '.5em';
+    labelPlace.style.backgroundColor = '#333BFF';
+
+
+    /** Initializes untiered items sortable */
+    sortPlace = document.getElementById('untieredItems');
+    var sortable2 = new Sortable(sortPlace, {
+      group: 'shared',
+      animation: 75
+    })
+
+    /**
+     * Adds an item to the untiered items list
+     */
+    function addItem() {
+      var itemX = document.createElement("div");
+      var itemText = prompt("Text to add");
+      itemX.innerHTML = itemText;
+      itemX.style.width = '75px';
+      itemX.style.height = '75px';
+      itemX.style.padding = '.5em';
+      document.getElementById("untieredItems").append(itemX);
+    }
+
+    /**
+     * Adds a new tier
+     */
+    function addTier() {
+      var tierX = document.getElementById(newTiers[newTierParse]);
+      var tierXItems = document.getElementById(newTierItems[newTierParse]);
+      tierXItems.style.width = '1000px';
+      tierXItems.style.height = '75px';
+      tierXItems.style.padding = '0.5em';
+      var tierLabel = document.getElementById("newTier" + (newTierParse - 2) + "Label");
+      newTierParse++;
+      tierLabel.innerHTML = alphabet[alphabetParse] + " TIER";
+      alphabetParse++;
+      tierLabel.style.width = '50px';
+      tierLabel.style.height = '50px';
+      tierLabel.style.padding = '.5em';
+      tierLabel.style.backgroundColor = labelColors[colorsParse];
+      colorsParse++;
+      var sortedTierX = new Sortable(tierXItems, {
+        group: 'shared',
+        animation: 75,
+      });
+    }
+
+    function removeTier() {
+      let tierX = document.getElementById(newTiers[newTierParse - 1]);
+      tierX.children[0].innerHTML = "";
+      var tierLabel = document.getElementById("newTier" + (newTierParse - 3) + "Label");
+      removeStyles(tierLabel);
+      newTierParse--;
+      colorsParse--;
+      alphabetParse--;
+    }
+
+    function removeStyles(el) {
+    el.removeAttribute('style');
+    if(el.childNodes.length > 0) {
+        for(var child in el.childNodes) {
+            /* filter element nodes only */
+            if(el.childNodes[child].nodeType == 1)
+                removeStyles(el.childNodes[child]);
+        }
+    }
+}
+
+    function changeTitle() {
+      var newTitle = prompt("New title name");
+      if (newTitle != null) {
+        document.getElementById('tierTitle').innerHTML = "<h2>" + newTitle + "</h2>";
+      }
+    }
+  </script>
+
+  
+</body>
+</html>
