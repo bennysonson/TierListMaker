@@ -9,6 +9,6 @@ Simple application for making tier lists.
 ![Sample 2](images/image2.png?raw=true "Title")
 
 **TODO**
-*Support for adding multiple images
-*Better saving/loading
-*Dynamic resizing of tiers
+* Support for adding multiple images
+* Better saving/loading
+* Dynamic resizing of tiers
